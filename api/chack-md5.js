@@ -1,5 +1,5 @@
 const BAKONG_API_URL = 'https://api-bakong.nbc.gov.kh/v1/check_transaction_by_md5';
-const BAKONG_TOKEN = process.env.BAKONG_TOKEN || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiZmU4NjJhYTU3YjJmNGZkOSJ9LCJpYXQiOjE3ODA2NjEwMjgsImV4cCI6MTc4ODQzNzAyOH0.eiRIXYA5-g3E8gnlsvhNEyvreoOhFGI5gPgHfx2IacM'; 
+const BAKONG_TOKEN = process.env.BAKONG_TOKEN || 'YOUR_BAKONG_TOKEN'; 
 
 export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
