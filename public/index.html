@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,13 +57,19 @@
             <section>
                 <h2 class="text-2xl font-bold text-slate-200 mb-2">របៀបយកទៅប្រើប្រាស់ក្នុង Python (Telegram Bot)</h2>
                 <div class="code-box p-5 rounded-xl font-mono text-sm overflow-x-auto text-slate-300 shadow-lg">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2 mb-3 text-xs text-slate-500">
+                        <span>main.py (Python 3+)</span>
+                        <span class="text-cyan-400">Recommended</span>
+                    </div>
 <pre><span class="text-rose-400">import</span> time
 <span class="text-rose-400">import</span> requests
 
 api_url = f<span class="text-emerald-400">"{window.location.origin}/bakadevApi/v1/chack-md5"</span>
 payload = {
-    <span class="text-emerald-400">"md5"</span>: <span class="text-emerald-400">"665c3365a0278eb22e6a8bce4c1652"</span>, 
-    <span class="text-emerald-400">"expectedAmount"</span>: <span class="text-amber-400">7.20</span>,<span class="text-emerald-400">"expectedCurrency"</span>: <span class="text-emerald-400">"USD"</span>              
+
+<span class="text-emerald-400">"md5"</span>: <span class="text-emerald-400">"665c3365a0278eb22e6a8bce4c1652"</span>, 
+    <span class="text-emerald-400">"expectedAmount"</span>: <span class="text-amber-400">7.20</span>,                 
+    <span class="text-emerald-400">"expectedCurrency"</span>: <span class="text-emerald-400">"USD"</span>              
 }
 
 <span class="text-rose-400">while True</span>:
@@ -103,11 +110,28 @@ payload = {
             resultPre.innerText = "កំពុងរត់ឆែកទៅកាន់ប្រព័ន្ធ Bakong...";
 
             try {
-                // 🎯 ហៅទៅកាន់ Route ផ្លូវការតាម vercel.json វិញ
-                const response = await fetch(`${window.location.origin}/bakadevApi/v1/chack-md5`, {
+                // កែប្រែមកប្រើ Relative Path ដាច់ខាត ដើម្បីការពារ Pattern Error
+                const response = await fetch('/bakadevApi/v1/chack-md5', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json' 
+                    },
                     body: JSON.stringify({
+                        md5: md5,
+                        expectedAmount: parseFloat(amount),
+                        expectedCurrency: currency
+                    })
+                });
+                
+                const data = await response.json();
+                resultPre.innerText = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultPre.innerText = "Error: " + error.message;
+            }
+        }
+    </script>
+</body>
+</html>                    body: JSON.stringify({
                         md5: md5,
                         expectedAmount: parseFloat(amount),
                         expectedCurrency: currency
