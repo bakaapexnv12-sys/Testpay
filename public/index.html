@@ -126,28 +126,4 @@ payload = {
     </script>
 </body>
 </html>
-            resultPre.innerText = "កំពុងរត់ឆែកទៅកាន់ប្រព័ន្ធ Bakong...";
-
-            try {
-                // កែប្រែមកប្រើ Relative Path ដាច់ខាត ដើម្បីការពារ Pattern Error
-                const response = await fetch('/bakadevApi/v1/chack-md5', {
-                    method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json' 
-                    },
-                    body: JSON.stringify({
-                        md5: md5,
-                        expectedAmount: parseFloat(amount),
-                        expectedCurrency: currency
-                    })
-                });
-                
-                const data = await response.json();
-                resultPre.innerText = JSON.stringify(data, null, 2);
-            } catch (error) {
-                resultPre.innerText = "Error: " + error.message;
-            }
-        }
-    </script>
-</body>
-</html>                    
+        
