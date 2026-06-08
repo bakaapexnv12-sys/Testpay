@@ -1,7 +1,9 @@
 {
   "version": 2,
   "rewrites": [
-    { "source": "/bakadevApi/v1/chack-md5", "destination": "/api/chack-md5" },
-    { "source": "/", "destination": "/public/index.html" }
+    { 
+      "source": "/bakadevApi/v1/chack-md5", 
+      "destination": "/api/check.js" 
+    }
   ]
 }
