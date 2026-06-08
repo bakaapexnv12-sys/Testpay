@@ -27,7 +27,6 @@ export default async function handler(req, res) {
         });
     }
 
-    // បង្កើត ម៉ោង នាទី វិនាទី បច្ចុប្បន្ន (Format: 13:11:52)
     const currentTime = new Date().toLocaleTimeString('en-US', { hour12: false });
 
     try {
@@ -49,7 +48,6 @@ export default async function handler(req, res) {
             const targetAmount = parseFloat(expectedAmount);
             const targetCurrency = expectedCurrency.toUpperCase();
 
-            // ផ្ទៀងផ្ទាត់ចំនួនលុយ
             if (actualAmount === targetAmount && actualCurrency === targetCurrency) {
                 return res.status(200).json({
                     success: true,
@@ -60,7 +58,6 @@ export default async function handler(req, res) {
                     note: "Payment completed successfully. You can now credit the user."
                 });
             } else {
-                // ករណីលួចកែបន្លំទឹកប្រាក់
                 return res.status(200).json({
                     success: false,
                     md5: md5,
@@ -72,7 +69,7 @@ export default async function handler(req, res) {
             }
         } 
         
-        // ករណីទី ២៖ មិនទាន់ឃើញលុយចូល ឬកំពុងរង់ចាំ (PENDING) - ទម្រង់ដូចបងចង់បានដាច់ខាត
+        // ករណីទី ២៖ មិនទាន់ឃើញលុយចូល ឬកំពុងរង់ចាំ (PENDING)
         return res.status(200).json({
             success: false,
             md5: md5,
