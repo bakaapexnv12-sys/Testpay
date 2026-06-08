@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BakaDev Bakong MD5 Checker API</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0b0f19; color: #e2e8f0; }
+        .code-box { background-color: #011627; border: 1px solid #1e293b; }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <div class="max-w-5xl mx-auto px-4 py-12">
+        <header class="text-center mb-12 border-b border-slate-800 pb-8">
+            <h1 class="text-4xl font-extrabold text-cyan-400 mb-2">⚡ BakaDev Bakong API</h1>
+            <p class="text-slate-400 text-lg">ប្រព័ន្ធ API កណ្ដាលសម្រាប់ផ្ទៀងផ្ទាត់សាច់ប្រាក់តាម Bakong MD5 Hash សម្រាប់ Telegram Bot</p>
+        </header>
+
+        <!-- LIVE API TESTER -->
+        <section class="bg-slate-900 border border-slate-800 p-6 rounded-2xl mb-12 shadow-xl">
+            <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <span class="flex h-3 w-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                សាកល្បងតេស្ត API ផ្ទាល់ (Live API Tester)
+            </h2>
+            <p class="text-slate-400 text-sm mb-4">បញ្ចូលទិន្នន័យដើម្បីតេស្តហៅទៅកាន់ API `/bakadevApi/v1/chack-md5` ភ្លាមៗ៖</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <input id="test-md5" type="text" placeholder="វាយបញ្ចូល MD5 Hash" class="bg-slate-950 border border-slate-700 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-500">
+                <input id="test-amount" type="number" step="0.01" placeholder="ចំនួនលុយ (ឧទាហរណ៍: 0.01)" class="bg-slate-950 border border-slate-700 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-500">
+                <select id="test-currency" class="bg-slate-950 border border-slate-700 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-500">
+                    <option value="USD">USD ($)</option>
+                    <option value="KHR">KHR (៛)</option>
+                </select>
+            </div>
+            
+            <button onclick="runLiveTest()" class="w-full bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold py-2 px-4 rounded-lg transition duration-200">
+                🚀 ពិនិត្យស្ថានភាព (Test API)
+            </button>
+
+            <div id="test-result-box" class="hidden mt-4 p-4 rounded-lg font-mono text-xs overflow-x-auto border border-slate-700 bg-slate-950">
+                <span class="text-slate-500">// Response ពី Server:</span>
+                <pre id="test-result" class="text-emerald-400 mt-2"></pre>
+            </div>
+        </section>
+
+        <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <span class="bg-cyan-500 text-slate-950 font-bold px-3 py-1 rounded text-sm mr-3">POST</span>
+                <span class="font-mono text-lg text-white font-semibold">/bakadevApi/v1/chack-md5</span>
+            </div>
+            <span class="text-slate-400 text-sm font-mono">Content-Type: application/json</span>
+        </div>
+
+        <!-- HOW TO USE IN PYTHON -->
+        <main class="space-y-12">
+            <section>
+                <h2 class="text-2xl font-bold text-slate-200 mb-2">របៀបយកទៅប្រើប្រាស់ក្នុង Python (Telegram Bot)</h2>
+                <p class="text-slate-400 mb-4 text-sm">សម្រាប់អ្នកសរសេរ Bot គឺមិនបាច់ត្រូវការ Bakong Token ផ្ទាល់ខ្លួនទេ គឺគ្រាន់តែបាញ់កូដ Python នេះមកកាន់ប្រព័ន្ធ **BakaDev API** វានឹងរត់ Check ឱ្យស្វ័យប្រវត្ត៖</p>
+                
+                <div class="code-box p-5 rounded-xl font-mono text-sm overflow-x-auto text-slate-300 shadow-lg">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2 mb-3 text-xs text-slate-500">
+                        <span>main.py (Python 3+)</span>
+                        <span class="text-cyan-400">Recommended</span>
+                    </div>
+<pre><span class="text-rose-400">import</span> time
+<span class="text-rose-400">import</span> requests
+
+<span class="text-slate-500"># ១. កំណត់ព័ត៌មានទឹកប្រាក់ និង MD5 ដែលបានមកពី KHQR</span>
+api_url = f<span class="text-emerald-400">"{window.location.origin}/bakadevApi/v1/chack-md5"</span>
+payload = {
+    <span class="text-emerald-400">"md5"</span>: <span class="text-emerald-400">"d60f3db96913029a2af979a1662c1e72"</span>,  <span class="text-slate-500"># លេខ MD5 របស់ QR</span>
+    <span class="text-emerald-400">"expectedAmount"</span>: <span class="text-amber-400">0.01</span>,                 <span class="text-slate-500"># ចំនួនលុយត្រូវបង់ពិតប្រាកដ</span>
+    <span class="text-emerald-400">"expectedCurrency"</span>: <span class="text-emerald-400">"USD"</span>,              <span class="text-slate-500"># ប្រភេទលុយ USD ឬ KHR</span>
+    <span class="text-emerald-400">"webhookUrl"</span>: <span class="text-emerald-400">"https://bot.com/webhook"</span>  <span class="text-slate-500"># (លុយចូលហើយ ឱ្យបាញ់ទៅប្រាប់ Bot)</span>
+}
+
+<span class="text-slate-500"># ២. បង្កើត Loop រត់ឆែកក្នុង Bot (ឆែករៀងរាល់ ៤ វិនាទីម្តង ការពារកុំឱ្យគាំង)</span>
+<span class="text-rose-400">print</span>(<span class="text-emerald-400">"កំពុងរង់ចាំអតិថិជនស្កេនទូទាត់..."</span>)
+<span class="text-rose-400">while True</span>:
+    <span class="text-rose-400">try</span>:
+        response = requests.post(api_url, json=payload).json()
+        
+        <span class="text-rose-400">if</span> response.get(<span class="text-emerald-400">"status"</span>) == <span class="text-emerald-400">"VERIFIED_SUCCESS"</span>:
+            <span class="text-rose-400">print</span>(<span class="text-emerald-400">"🎉 ទទួលបានលុយត្រឹមត្រូវហើយ! ប្រព័ន្ធនឹងបង្កើតសមតុល្យ (Balance) ជូនភ្លាមៗ។"</span>)
+            <span class="text-rose-400">break</span>
+        <span class="text-rose-400">elif</span> response.get(<span class="text-emerald-400">"status"</span>) == <span class="text-emerald-400">"AMOUNT_MISMATCH"</span>:
+            <span class="text-rose-400">print</span>(<span class="text-rose-400">"⚠️ ព្រមាន៖ អតិថិជនលួចកែបន្លំចំនួនលុយបង់!"</span>)
+            <span class="text-rose-400">break</span>
+        <span class="text-rose-400">else</span>:
+            time.sleep(<span class="text-amber-400">4</span>)
+    <span class="text-rose-400">except</span> Exception <span class="text-rose-400">as</span> e:
+        <span class="text-rose-400">print</span>(f<span class="text-emerald-400">"មានបញ្ហាភ្ជាប់ទៅកាន់ API: {e}"</span>)
+        time.sleep(<span class="text-amber-400">4</span>)</pre>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const currentHost = window.location.origin;
+        async function runLiveTest() {
+            const md5 = document.getElementById('test-md5').value.trim();
+            const amount = document.getElementById('test-amount').value.trim();
+            const currency = document.getElementById('test-currency').value;
+            const resultBox = document.getElementById('test-result-box');
+            const resultPre = document.getElementById('test-result');
+
+            if(!md5 || !amount) {
+                alert('សូមបំពេញទិន្នន័យ MD5 និង ចំនួនទឹកប្រាក់ជាមុនសិន!');
+                return;
+            }
+
+            resultBox.classList.remove('hidden');
+            resultPre.innerText = "កំពុងរត់ឆែកទៅកាន់ប្រព័ន្ធ Bakong...";
+
+            try {
+                const response = await fetch(`${currentHost}/bakadevApi/v1/chack-md5`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        md5: md5,
+                        expectedAmount: parseFloat(amount),
+                        expectedCurrency: currency
+                    })
+                });
+                const data = await response.json();
+                resultPre.innerText = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultPre.innerText = "Error: " + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
