@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +23,7 @@
                 <span class="flex h-3 w-3 rounded-full bg-emerald-500 animate-pulse"></span>
                 សាកល្បងតេស្ត API ផ្ទាល់ (Live API Tester)
             </h2>
-            <p class="text-slate-400 text-sm mb-4">បញ្ចូលទិន្នន័យដើម្បីតេស្តហៅទៅកាន់ API /bakadevApi/v1/chack-md5 ភ្លាមៗ៖</p>
+            <p class="text-slate-400 text-sm mb-4">បញ្ចូលទិន្នន័យដើម្បីតេស្តហៅទៅកាន់ API `/bakadevApi/v1/chack-md5` ភ្លាមៗ៖</p>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <input id="test-md5" type="text" placeholder="វាយបញ្ចូល MD5 Hash" class="bg-slate-950 border border-slate-700 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-500">
@@ -59,15 +58,13 @@
                 <div class="code-box p-5 rounded-xl font-mono text-sm overflow-x-auto text-slate-300 shadow-lg">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-2 mb-3 text-xs text-slate-500">
                         <span>main.py (Python 3+)</span>
-                        <span class="text-cyan-400">Recommended</span>
                     </div>
 <pre><span class="text-rose-400">import</span> time
 <span class="text-rose-400">import</span> requests
 
 api_url = f<span class="text-emerald-400">"{window.location.origin}/bakadevApi/v1/chack-md5"</span>
 payload = {
-
-<span class="text-emerald-400">"md5"</span>: <span class="text-emerald-400">"665c3365a0278eb22e6a8bce4c1652"</span>, 
+    <span class="text-emerald-400">"md5"</span>: <span class="text-emerald-400">"665c3365a0278eb22e6a8bce4c1652"</span>, 
     <span class="text-emerald-400">"expectedAmount"</span>: <span class="text-amber-400">7.20</span>,                 
     <span class="text-emerald-400">"expectedCurrency"</span>: <span class="text-emerald-400">"USD"</span>              
 }
@@ -110,6 +107,28 @@ payload = {
             resultPre.innerText = "កំពុងរត់ឆែកទៅកាន់ប្រព័ន្ធ Bakong...";
 
             try {
+                // ប្រើប្រាស់ផ្លូវកាត់ (Relative Path) ដើរស្គាល់គ្រប់ Domain ទាំងទូរសព្ទ និងកុំព្យូទ័រ
+                const response = await fetch('/bakadevApi/v1/chack-md5', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        md5: md5,
+                        expectedAmount: parseFloat(amount),
+                        expectedCurrency: currency
+                    })
+                });
+                const data = await response.json();
+                resultPre.innerText = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultPre.innerText = "Error: " + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
+            resultPre.innerText = "កំពុងរត់ឆែកទៅកាន់ប្រព័ន្ធ Bakong...";
+
+            try {
                 // កែប្រែមកប្រើ Relative Path ដាច់ខាត ដើម្បីការពារ Pattern Error
                 const response = await fetch('/bakadevApi/v1/chack-md5', {
                     method: 'POST',
@@ -131,18 +150,4 @@ payload = {
         }
     </script>
 </body>
-</html>                    body: JSON.stringify({
-                        md5: md5,
-                        expectedAmount: parseFloat(amount),
-                        expectedCurrency: currency
-                    })
-                });
-                const data = await response.json();
-                resultPre.innerText = JSON.stringify(data, null, 2);
-            } catch (error) {
-                resultPre.innerText = "Error: " + error.message;
-            }
-        }
-    </script>
-</body>
-</html>
+</html>                    
