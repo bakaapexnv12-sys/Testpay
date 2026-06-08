@@ -1,7 +1,7 @@
 <?php
 // ការកំណត់សម្រាប់បង្កើត Hash
 $profile_id  = "4D8E0d8r6OPzy1d2sJR8VziXjXHpMchS";
-$secret_key  = "YOUR_SECRET_KEY"; // ដាក់ Key ពិតប្រាកដរបស់អ្នក
+$secret_key  = "pqEiKngED53mgZCJkwwjXBfIZctQQd34"; // ដាក់ Key ពិតប្រាកដរបស់អ្នក
 
 $payment_data = [
     "transaction_id" => "ORD_" . time(),
