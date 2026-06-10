@@ -1,9 +1,13 @@
 {
-  "version": 2,
-  "rewrites": [
-    { 
-      "source": "/bakadevApi/v1/chack-md5", 
-      "destination": "/api/check.js" 
+  "functions": {
+    "api/**/*.php": {
+      "runtime": "vercel-php@0.7.1"
+    }
+  },
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.php"
     }
   ]
 }
